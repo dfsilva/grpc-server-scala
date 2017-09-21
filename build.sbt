@@ -39,6 +39,7 @@ lazy val root = project.in(file("."))
     fork in run := true,
   )
   .configs (MultiJvm)
+  .dependsOn(services)
   .aggregate(services, core)
 
 lazy val core = project.in(file("core"))
@@ -53,6 +54,6 @@ lazy val services = project
     PB.targets in Compile := Seq(
       scalapb.gen() -> (sourceManaged in Compile).value
     )
-  )
+  ).dependsOn(core)
 
         
